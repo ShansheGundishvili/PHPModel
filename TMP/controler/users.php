@@ -1,68 +1,46 @@
-<?php
-
-/**
- * @file      users.php
- * @brief     This controller is designed to manage all users actions
- * @author    Created by Pascal.BENZONANA
- * @author    Updated by Nicolas.GLASSEY
- * @version   13-APR-2020
+<?php /**
+ * @file users.php
+ * @@brief     This file is the rooter managing the link with controllers.
+ * @param $loginRequest
+ * @author    Updated by Shanshe Gundishvili
+ * @version   10.05.2021
  */
 
-
 /**
- * @brief This function is designed to create a new user session
- * @param $userEmailAddress : user unique id, must be meet RFC 5321/5322
- */
-function createSession($userEmailAddress)
-{
-    $_SESSION['userEmailAddress'] = $userEmailAddress;
-}
-
-/**
- * @brief This function is designed to manage login request
- * @param $loginRequest containing login fields required to authenticate the user
+ * @author : Shanshe Gundishvili
+ * @date : 20/05/2021
+ * @Goal : to log in a client in his account
  */
 function login($loginRequest)
 {
-    //if login request was submitted
-    try {
-        if (isset($loginRequest['inputUserEmailAddress']) && isset($loginRequest['inputUserPsw'])) {
-            //extract login parameters
-            $userEmailAddress = $loginRequest['inputUserEmailAddress'];
-            $userPsw = $loginRequest['inputUserPsw'];
+    $error = 0;
+    if (isset($loginRequest['inputUserEmailAddress']) && isset($loginRequest['inputUserPsw'])) {
+        $userEmailAddress = $loginRequest['inputUserEmailAddress'];
+        $userPsw = $loginRequest['inputUserPsw'];
 
-            //try to check if user/psw are matching with the database
-            require_once "model/usersManager.php";
-            if (isLoginCorrect($userEmailAddress, $userPsw)) {
-                $loginErrorMessage = null;
-                $_SESSION['userEmailAddress'] = $userEmailAddress;
-                require "view/home.php";
-            } else { //if the user/psw does not match, login form appears again with an error message
-                $loginErrorMessage = "L'adresse email et/ou le mot de passe ne correspondent pas !";
-                require "view/login.php";
-            }
-        } else { //the user does not yet fill the form
+        //tester les donnees di formulaire dans le modele
+
+        require "model/usersManager.php";
+        if (isLoginCorrect($userEmailAddress, $userPsw)) {
+            getUserType($userEmailAddress);
+            $_SESSION['userEmailAddress'] = $userEmailAddress;
+            $error = 0;
+            require "view/home.php";
+
+        } else {
+            $error = 1;
             require "view/login.php";
         }
-    } catch (ModelDataBaseException $ex) {
-        $loginErrorMessage = "Nous rencontrons actuellement un problème technique. Il est temporairement impossible de s'annoncer. Désolé du dérangement !";
-        $_SESSION['userEmailAddress'] = null;
-        require "view/login.php";
+    } else { //donnes non remplies
+
+        require $_SERVER['DOCUMENT_ROOT'] . "/view/login.php";
     }
 }
 
-/*function registerCheck($email){
-
-
-
-*/
-
-
-
-
 /**
- * @brief This function is designed to manage logout request
- * @remark In case of login, the user session will be destroyed.
+ * @author : Shanshe Gundishvili
+ * @date : 20/05/2021
+ * @Goal : to log user out of his account
  */
 function logout()
 {
@@ -72,45 +50,106 @@ function logout()
 }
 
 /**
- * @brief This function is designed manage the register request
- * @param $registerRequest : contains all fields mandatory and optional to register a new user (coming from a form)
+ * @author : Shanshe Gundishvili
+ * @date : 20/05/2021
+ * @Goal : to register new user/client in database
  */
 function register($registerRequest)
 {
     try {
-        //variable set
         if (isset($registerRequest['inputUserEmailAddress']) && isset($registerRequest['inputUserPsw']) && isset($registerRequest['inputUserPswRepeat'])) {
 
-            //extract register parameters
             $userEmailAddress = $registerRequest['inputUserEmailAddress'];
             $userPsw = $registerRequest['inputUserPsw'];
             $userPswRepeat = $registerRequest['inputUserPswRepeat'];
+            require_once "model/usersManager.php";
+            $check = checkRegister($userEmailAddress);
+            if (!(isset($check[0][0]))) {
+                $registerErrorMessage = null;
+                //check passwords are same
+                if ($userPsw == $userPswRepeat) {
+                    $registerPswErrorMessage = null;
+                    require_once "model/usersManager.php";
+                    if (registerNewAccount($userEmailAddress, $userPsw)) {
+                        $_SESSION['userEmailAddress'] = $userEmailAddress;
+                        require_once "navigation.php";
+                        home();
 
-            if ($userPsw == $userPswRepeat) {
-                require_once "model/usersManager.php";
-                if (registerNewAccount($userEmailAddress, $userPsw)) {
-                    $_SESSION['userEmailAddress'] = $userEmailAddress;
-                    $registerErrorMessage = null;
-                    require "view/home.php";
+                    } else {
+                        $registerErrorMessage = "our developers don't know the reason of this error";
+                        require_once "view/register.php";
+                    }
                 } else {
-                    $registerErrorMessage = "L'inscription n'est pas possible avec les valeurs saisies !";
-                    require "view/register.php";
+                    $registerPswErrorMessage = "passwords are different";
+                    require_once "view/register.php";
                 }
             } else {
-                $registerPswErrorMessage = "Les mots de passe ne sont pas similaires !";
-                require "view/register.php";
+                $registerErrorMessage = "Email already exists";
+                require_once "view/register.php";
             }
-        } else {
-            $registerErrorMessage = null;
-            require "view/register.php";
+            require_once "view/home.php";
         }
     } catch (ModelDataBaseException $ex) {
-        $registerErrorMessage = "Nous rencontrons actuellement un problème technique. Il est temporairement impossible de s'enregistrer. Désolé du dérangement !";
-        require "view/register.php";
+        $registerErrorMessage = "we are dead";
+        return "view/lost.php";
     }
 }
 
-function subscribe(){
+/**
+ * @author : Shanshe Gundishvili
+ * @date : 20/05/2021
+ * @Goal : to modify password of existing user
+ */
+function modifyUserPassC($request)
+{
+    $endToken = array();
+    if (isset($_SESSION['userEmailAddress']) && isset($request['inputUserPsw']) && isset($request['inputUserPswRepeat'])) {
+        if ($request['inputUserPsw'] == $request['inputUserPswRepeat']) {
+            $registerPswErrorMessage = null;
+            require_once "model/usersManager.php";
+            if (modifyUserPassM($_SESSION['userEmailAddress'], $request['inputUserPsw'])) {
+                home();
+            } else {
+                $ChPswErrorMessage = "our developers don't know the reason of this error";
+                require_once "view/register.php";
+            }
+        } else {
+            $ChPswErrorMessage = 1;
+        }
+    } else { //donnes non remplies
 
+        require "view/modifUserInfo.php";
+    }
+}
 
+/**
+ * @author : Shanshe Gundishvili
+ * @date : 20/05/2021
+ * @Goal : to modify Email of existing user
+ */
+function modifyUserEmailC($request)
+{
+    if (isset($_SESSION['userEmailAddress']) && isset($request['Email'])) {
+        require_once "model/usersManager.php";
+        $userEmailAddress = $request['Email'];
+        $check = checkRegister($userEmailAddress);
+        if (!(isset($check[0][0]))) {
+            $registerPswErrorMessage = null;
+            require_once "model/usersManager.php";
+            if (modifyUserEmailM($_SESSION['userEmailAddress'], $request['Email'])) {
+                logout();
+                require_once "controler/annonce.php";
+                home();
+            } else {
+                $ChPswErrorMessage = "our developers don't know the reason of this error";
+                require_once "view/register.php";
+            }
+        }else {
+            $registerErrorMessage = "Email already exists";
+            require_once "view/register.php";
+        }
+    } else { //donnes non remplies
+
+        require "view/modifUserInfo.php";
+    }
 }

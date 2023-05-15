@@ -13,18 +13,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?php echo $title ?></title>
-      <link rel="icon" href="view/img/logo/Logo.png">
-    <link rel="stylesheet" href="view/css/components.css">
-    <link rel="stylesheet" href="view/css/icons.css">
-    <link rel="stylesheet" href="view/css/responsee.css">
-    <link rel="stylesheet" href="view/owl-carousel/owl.carousel.css">
-    <link rel="stylesheet" href="view/owl-carousel/owl.theme.css">
+      <link rel="icon" href="/view/img/logo/Logo.png">
+    <link rel="stylesheet" href="/view/css/components.css">
+    <link rel="stylesheet" href="/view/css/icons.css">
+    <link rel="stylesheet" href="/view/css/responsee.css">
+    <link rel="stylesheet" href="/view/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="/view/owl-carousel/owl.theme.css">
     <!-- CUSTOM STYLE -->
-    <link rel="stylesheet" href="view/css/template-style.css">
+      <link rel="stylesheet" href="/view/css/template-style.css">
+      <link rel="stylesheet" href="/view/css/GalleryCSS.css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-    <script type="text/javascript" src="view/js/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="view/js/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="view/js/validation.js"></script>
+    <script type="text/javascript" src="/view/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/view/js/jquery-ui.min.js"></script>
   </head>  
 
   <body class="size-1140">
@@ -83,7 +83,7 @@
                 <h4 class="text-uppercase text-strong margin-top-30">About Our Company</h4>
                 <div class="margin">
                   <div class="s-12 m-12 l-4 margin-m-bottom">
-                    <a class="image-hover-zoom" href="/"><img src="img/blog-04.jpg" alt=""></a>
+                    <a class="image-hover-zoom" href="/"><img src="view/img/blog-04.jpg" alt=""></a>
                   </div>
                   <div class="s-12 m-12 l-8 margin-m-bottom">
                     <p>We are base in Sainte-Croix, Vaud, Switzerland</p>

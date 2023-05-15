@@ -1,99 +1,144 @@
 <?php
 /**
- * @file      usersManager.php
- * @brief     This model is designed to implements users business logic
- * @author    Created by Pascal.BENZONANA
- * @author    Updated by Nicolas.GLASSEY
- * @version   13-APR-2020
+ * @author : Shanshe Gundishvili
+ * @date : 20/05/2021
+ * @Goal : to treat user's information
  */
 
 /**
- * @brief This function is designed to verify user's login
- * @param $userEmailAddress : must be meet RFC 5321/5322
- * @param $userPsw : users's password
- * @return bool : "true" only if the user and psw match the database. In all other cases will be "false".
- * @throws ModelDataBaseException : will be throw if something goes wrong with the database opening process
+ * @author : Shanshe Gundishvili
+ * @date : 20/05/2021
+ * @Goal : to check if login is correct, provided by user
  */
-
-function getUsers()
-{
-    //Cette fonction renvoie un tableau avec les users
-    $tab =  json_decode(file_get_contents("data/users.json"),true); // by default, return everything as an associative array
-    return $tab; //renvoi du tableau
-
-}
-
-function updateUsers($users){
-
-    //Cette fonction réécrit tout le fichier users.json à partir du tableau associatif
-    file_put_contents("data/users.json",json_encode($users));
-
-}
 function isLoginCorrect($userEmailAddress, $userPsw)
 {
     $result = false;
-    //lire tous les users
-    $users=getUsers();
 
-    foreach($users as $user){
-        if ($user["userEmailAddress"]==$userEmailAddress) {
-            $result = password_verify($userPsw, $user["userHashPsw"]);
-        }
+
+    $strSeparator = '\'';
+    //requete pour recuperer le psw de la bd du login concerné
+    $loginQuery = 'SELECT password FROM users WHERE email=' . $strSeparator . $userEmailAddress . $strSeparator . ";";
+
+    require "model/dbConnector.php";
+
+    $queryResult = executeQuerySelect($loginQuery);
+
+    if (isset($queryResult[0]['password'])) {
+
+        //Recuperation du password de la BD
+        $userPswHash = $queryResult[0]['password'];
+        //Comparaison avec le password du formulaire
+        $result = password_verify($userPsw, $userPswHash);
     }
 
     return $result;
 }
 
+
 /**
- * @brief This function is designed to register a new account
- * @param $userEmailAddress : must be meet RFC 5321/5322
- * @param $userPsw : user's password
- * @return bool : "true" only if the user doesn't already exist. In all other cases will be "false".
- * @throws ModelDataBaseException : will be throw if something goes wrong with the database opening process
+ * @author : Shanshe Gundishvili
+ * @date : 20/05/2021
+ * @Goal : to register new account
  */
 function registerNewAccount($userEmailAddress, $userPsw)
 {
-    //lire le fichier des users
-    if(registerCheck($userEmailAddress) <= 0) {
 
+    $result = false;
+    $strSeparator = '\'';
+    $userHashPsw = password_hash($userPsw, PASSWORD_DEFAULT);
+    $registerQuery = "INSERT INTO users (email, password, user_types_id) VALUES(" . $strSeparator . $userEmailAddress . $strSeparator . ", " . $strSeparator . $userHashPsw . $strSeparator . ", " . 1 . ")";
+    require_once "model/dbConnector.php";
+    $queryResult = executeQueryInsert($registerQuery);
 
-        $result = false;
-        $users = getUsers();
-        $userHashPsw = password_hash($userPsw, PASSWORD_DEFAULT);
+    $result = 1;
+    return $result;
+}
 
-        //Ajouter la ligne de l'email(on pourrait vérifier s'il existe)
-        $users[] = array('userEmailAddress' => $userEmailAddress, "userHashPsw" => $userHashPsw);
+/**
+ * @author : Shanshe Gundishvili
+ * @date : 20/05/2021
+ * @Goal : to fetch user's type
+ */
+function getUserType($userEmailAddress)
+{
 
-        //réécrire le fichier des users
-        updateUsers($users);
-        return true;
-    }else{
+    $strSeparator = '\'';
+    $userTypeQuery = 'SELECT user_types_id FROM users WHERE email=' . $strSeparator . $userEmailAddress . $strSeparator . ";";
 
-        return false;
+    require_once "model/dbConnector.php";
+    $queryResult = executeQuerySelect($userTypeQuery);
 
-
+    if (isset($queryResult)) {
+        if ($queryResult[0]['user_types_id'] == 1) $_SESSION['userType'] = 1;
+        elseif ($queryResult[0]['user_types_id'] == 0) $_SESSION['userType'] = 0;
     }
+}
+
+function getUserID($userEmailAddress)
+{
+
+    $strSeparator = '\'';
+    $userTypeQuery = 'SELECT id FROM users WHERE email=' . $strSeparator . $userEmailAddress . $strSeparator . ";";
+
+    require_once "model/dbConnector.php";
+    $queryResult = executeQuerySelect($userTypeQuery);
+
+    return $queryResult[0];
+}
+
+
+/**
+ * @author : Shanshe Gundishvili
+ * @date : 20/05/2021
+ * @Goal : to check if register information is right
+ */
+function checkRegister($email)
+{
+
+    $strSeparator = '\'';
+    $userTypeQuery = 'SELECT email FROM users WHERE email=' . $strSeparator . $email . $strSeparator . ";";
+
+    require_once "model/dbConnector.php";
+    $queryResult = executeQuerySelect($userTypeQuery);
+
+    return $queryResult;
 
 }
 
 /**
- *
- * @param $email
- * @return bool
+ * @author : Shanshe Gundishvili
+ * @date : 20/05/2021
+ * @Goal : to modify user's password
  */
-function registerCheck($email){
-    $result = 0;
-    //lire tous les users
-    $users=getUsers();
+function modifyUserPassM($email, $password)
+{
 
-    foreach($users as $user){
-        if ($user["userEmailAddress"]==$email) {
-            $result = 1;
-        }
+    $result = false;
+    $strSeparator = '\'';
+    $userHashPsw = password_hash($password, PASSWORD_DEFAULT);
+    $Query = "UPDATE users SET password =" . $strSeparator . $userHashPsw . $strSeparator . " WHERE email =" . $strSeparator . $email . $strSeparator . ";";
+    require_once "model/dbConnector.php";
+    $queryResult = executeQueryInsert($Query);
 
-    }
-
+    $result = 1;
     return $result;
 }
 
 
+/**
+ * @author : Shanshe Gundishvili
+ * @date : 20/05/2021
+ * @Goal : to modify user's Email
+ */
+function modifyUserEmailM($FEmail, $NEmail)
+{
+
+    $result = false;
+    $strSeparator = '\'';
+    $Query = "UPDATE users SET email =" . $strSeparator . $NEmail . $strSeparator . " WHERE email =" . $strSeparator . $FEmail . $strSeparator . ";";
+    require_once "model/dbConnector.php";
+    $queryResult = executeQueryInsert($Query);
+
+    $result = 1;
+    return $result;
+}
