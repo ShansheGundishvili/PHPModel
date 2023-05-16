@@ -41,7 +41,7 @@
             
             <ul class="right chevron">
                 <li><a href="index.php?action=home">Home</a></li>
-                <li><a href="index.php?action=Gallery">Gallery</a></li>
+                <li><a href="index.php?action=Gallery">Galleries</a></li>
                 <li><a href="index.php?action=contact">Contact</a></li>
                 <li><a href="index.php?action=newsletter">Newsletter</a></li>
                 <?php if(isset($_SESSION['userEmailAddress'])): ?>

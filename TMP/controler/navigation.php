@@ -40,7 +40,17 @@ function contact()
 }
 
 
-function galleries()
+function albums()
 {
-    require "view/Galleries.php";
+    require "model/albumManager.php";
+    $myQuizzes = getAlbums();
+    require "view/albums.php";
+}
+
+function album($id){
+
+    require "model/albumManager.php";
+    $myQuizzes = getAlbum($id);
+    require "view/album.php";
+
 }

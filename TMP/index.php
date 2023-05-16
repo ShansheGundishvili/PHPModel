@@ -41,8 +41,11 @@ if (isset($_GET['action'])) {
         case 'contact' :
             contact();
             break;
-        case 'Gallery' :
-            galleries();
+        case 'albums' :
+            albums();
+            break;
+        case 'album' :
+            album($_GET['id']);
             break;
         default :
             lost();
