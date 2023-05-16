@@ -15,9 +15,9 @@ function isLoginCorrect($userEmailAddress, $userPsw)
     $result = false;
 
 
-    $strSeparator = '\'';
+    $sep = '\'';
     //requete pour recuperer le psw de la bd du login concerné
-    $loginQuery = 'SELECT password FROM users WHERE email=' . $strSeparator . $userEmailAddress . $strSeparator . ";";
+    $loginQuery = 'SELECT password FROM users WHERE email=' . $sep . $userEmailAddress . $sep . ";";
 
     require "model/dbConnector.php";
 
@@ -40,13 +40,14 @@ function isLoginCorrect($userEmailAddress, $userPsw)
  * @date : 20/05/2021
  * @Goal : to register new account
  */
-function registerNewAccount($userEmailAddress, $userPsw)
+function registerNewAccount($userEmailAddress, $userPsw, $username, $userNumber, $userAddress, $userFirstname, $userLastname)
 {
 
     $result = false;
-    $strSeparator = '\'';
+    $sep = '\'';
     $userHashPsw = password_hash($userPsw, PASSWORD_DEFAULT);
-    $registerQuery = "INSERT INTO users (email, password, user_types_id) VALUES(" . $strSeparator . $userEmailAddress . $strSeparator . ", " . $strSeparator . $userHashPsw . $strSeparator . ", " . 1 . ")";
+    $registerQuery = "INSERT INTO users (email, password, username, number, address, firstname, lastname) VALUES(" . $sep . $userEmailAddress . $sep . ", " . $sep . $userHashPsw . $sep . ", " . $sep . $username . $sep .", " . $sep . $userNumber . $sep . ", " . $sep . $userAddress . $sep . ", " . $sep . $userFirstname . $sep . ", " . $sep . $userLastname . $sep .")";
+
     require_once "model/dbConnector.php";
     $queryResult = executeQueryInsert($registerQuery);
 
@@ -54,31 +55,11 @@ function registerNewAccount($userEmailAddress, $userPsw)
     return $result;
 }
 
-/**
- * @author : Shanshe Gundishvili
- * @date : 20/05/2021
- * @Goal : to fetch user's type
- */
-function getUserType($userEmailAddress)
-{
-
-    $strSeparator = '\'';
-    $userTypeQuery = 'SELECT user_types_id FROM users WHERE email=' . $strSeparator . $userEmailAddress . $strSeparator . ";";
-
-    require_once "model/dbConnector.php";
-    $queryResult = executeQuerySelect($userTypeQuery);
-
-    if (isset($queryResult)) {
-        if ($queryResult[0]['user_types_id'] == 1) $_SESSION['userType'] = 1;
-        elseif ($queryResult[0]['user_types_id'] == 0) $_SESSION['userType'] = 0;
-    }
-}
-
 function getUserID($userEmailAddress)
 {
 
-    $strSeparator = '\'';
-    $userTypeQuery = 'SELECT id FROM users WHERE email=' . $strSeparator . $userEmailAddress . $strSeparator . ";";
+    $sep = '\'';
+    $userTypeQuery = 'SELECT id FROM users WHERE email=' . $sep . $userEmailAddress . $sep . ";";
 
     require_once "model/dbConnector.php";
     $queryResult = executeQuerySelect($userTypeQuery);
@@ -95,8 +76,23 @@ function getUserID($userEmailAddress)
 function checkRegister($email)
 {
 
-    $strSeparator = '\'';
-    $userTypeQuery = 'SELECT email FROM users WHERE email=' . $strSeparator . $email . $strSeparator . ";";
+    $sep = '\'';
+    $userTypeQuery = 'SELECT email FROM users WHERE email=' . $sep . $email . $sep . ";";
+
+    require_once "model/dbConnector.php";
+    $queryResult = executeQuerySelect($userTypeQuery);
+
+    return $queryResult;
+
+}
+
+
+
+function checkUsername($username)
+{
+
+    $sep = '\'';
+    $userTypeQuery = 'SELECT username FROM users WHERE username=' . $sep . $username . $sep . ";";
 
     require_once "model/dbConnector.php";
     $queryResult = executeQuerySelect($userTypeQuery);
@@ -114,9 +110,9 @@ function modifyUserPassM($email, $password)
 {
 
     $result = false;
-    $strSeparator = '\'';
+    $sep = '\'';
     $userHashPsw = password_hash($password, PASSWORD_DEFAULT);
-    $Query = "UPDATE users SET password =" . $strSeparator . $userHashPsw . $strSeparator . " WHERE email =" . $strSeparator . $email . $strSeparator . ";";
+    $Query = "UPDATE users SET password =" . $sep . $userHashPsw . $sep . " WHERE email =" . $sep . $email . $sep . ";";
     require_once "model/dbConnector.php";
     $queryResult = executeQueryInsert($Query);
 
@@ -134,8 +130,8 @@ function modifyUserEmailM($FEmail, $NEmail)
 {
 
     $result = false;
-    $strSeparator = '\'';
-    $Query = "UPDATE users SET email =" . $strSeparator . $NEmail . $strSeparator . " WHERE email =" . $strSeparator . $FEmail . $strSeparator . ";";
+    $sep = '\'';
+    $Query = "UPDATE users SET email =" . $sep . $NEmail . $sep . " WHERE email =" . $sep . $FEmail . $sep . ";";
     require_once "model/dbConnector.php";
     $queryResult = executeQueryInsert($Query);
 

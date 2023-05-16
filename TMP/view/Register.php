@@ -19,7 +19,7 @@ ob_start();
         <!-- Content -->
         <article>
             <header class="section background-primary text-center">
-                <h1 class="text-white margin-bottom-0 text-size-50 text-thin text-line-height-1">Enregistrement</h1>
+                <h1 class="text-white margin-bottom-0 text-size-50 text-thin text-line-height-1">Register</h1>
             </header>
             <div class="section background-white">
                 <div class="line">
@@ -56,29 +56,56 @@ ob_start();
 
                         <!-- Contact Form -->
                         <div class="s-12 m-12 l-6">
-                            <h2 class="text-uppercase text-strong margin-bottom-30">Enregistrement</h2>
+                            <h2 class="text-uppercase text-strong margin-bottom-30">Register</h2>
                             <form class="customform" action="../index.php?action=register" method="post">
                                 <div class="line">
                                     <div class="margin">
                                         <div class="s-12 m-12 l-6">
                                             <div class="form-group">
-                                                <label for="inputEmail">Email address *</label>
+                                                <label for="inputEmail">Email address</label>
                                                 <input class="form-control" type="email" name="inputUserEmailAddress"
                                                        id="inputEmail" aria-describedby="emailHelp"
                                                        placeholder="firstname@domain.ch" required>
-                                                <small class="form-text text-muted" id="emailHelp">We'll never share
-                                                    your email with anyone else.</small>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputPassword">Password *</label>
+                                                <label for="inputPassword">Password</label>
                                                 <input class="form-control" type="password" name="inputUserPsw"
                                                        id="inputPassword" placeholder="Password" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputConfirmPassword">Password confirm *</label>
+                                                <label for="inputConfirmPassword">Password confirm</label>
                                                 <input class="form-control" type="password" name="inputUserPswRepeat"
                                                        id="inputConfirmPassword" placeholder="PasswordConfirm" required>
                                             </div>
+
+
+
+                                            <div class="form-group">
+                                                <label for="inputUsername">Username</label>
+                                                <input class="form-control" type="text" name="inputUsername"
+                                                       id="inputUsername" placeholder="Username" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputNumber">Phone number</label>
+                                                <input class="form-control" type="text" name="inputNumber"
+                                                       id="inputNumber" placeholder="Phone number" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputAddress">Address</label>
+                                                <input class="form-control" type="text" name="inputAddress"
+                                                       id="inputAddress" placeholder="Address" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputFirstname">Firstname</label>
+                                                <input class="form-control" type="text" name="inputFirstname"
+                                                       id="inputFirstname" placeholder="Firstname" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputLastname">Lastname</label>
+                                                <input class="form-control" type="text" name="inputLastname"
+                                                       id="inputLastname" placeholder="Lastname" required>
+                                            </div>
+
                                         </div>
                                     </div>
                                     <?php if(isset($registerErrorMessage)): ?>

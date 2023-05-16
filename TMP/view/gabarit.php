@@ -41,15 +41,15 @@
             
             <ul class="right chevron">
                 <li><a href="index.php?action=home">Home</a></li>
-                <li><a href="index.php?action=Gallery">Galleries</a></li>
+                <li><a href="index.php?action=albums">Albums</a></li>
                 <li><a href="index.php?action=contact">Contact</a></li>
                 <li><a href="index.php?action=newsletter">Newsletter</a></li>
                 <?php if(isset($_SESSION['userEmailAddress'])): ?>
-                    <li><a href="index.php?action=logout">Déconnexion / <?= $_SESSION['userEmailAddress'] ?></a></li>
+                    <li><a href="index.php?action=logout">Logout / <?= $_SESSION['userEmailAddress'] ?></a></li>
                     <li><a href="index.php?action=myAd">Mes annonces</a></li>
                 <?php elseif(!isset($_SESSION['userEmailAddress'])): ?>
-                    <li><a href="index.php?action=login">Connexion</a></li>
-                    <li><a href="index.php?action=register">S'inscrire</a></li>
+                    <li><a href="index.php?action=login">Login</a></li>
+                    <li><a href="index.php?action=registerView">Register</a></li>
                 <?php endif; ?>
 
             </ul>

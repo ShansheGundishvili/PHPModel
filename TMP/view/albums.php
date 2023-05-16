@@ -30,11 +30,11 @@ ob_start();
                                     <td>User</td>
                                     <td>Gallery name</td>
                                 </tr>
-                                <?php foreach ($galleries as $gallery){?>
+                                <?php foreach ($albums as $album){?>
                                 <tr class="block-bordered">
-                                    <td><?php echo $gallery['username']?></td>id
-                                    <td><?php echo $gallery['name']?></td>
-                                    <td class="text-center background-dark"><a class="text-white" href="/index.php?action=gallery&id=<?php echo $gallery['id']?>">
+                                    <td><?php echo $album['username']?></td>id
+                                    <td><?php echo $album['name']?></td>
+                                    <td class="text-center background-dark"><a class="text-white" href="/index.php?action=gallery&id=<?php echo $album['id']?>">
                                             <div class="full-width">Visit</div>
                                         </a></td>
                                 </tr>

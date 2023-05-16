@@ -47,6 +47,9 @@ if (isset($_GET['action'])) {
         case 'album' :
             album($_GET['id']);
             break;
+        case 'registerView' :
+            registerView();
+            break;
         default :
             lost();
     }

@@ -37,11 +37,11 @@ function openDBConnexion(){
     $tempDBConnexion = null;
 
     $sqlDriver = 'mysql';
-    $hostname = 'localhost';
+    $hostname = '127.0.0.1';
     $port = 3306;
     $charset = 'utf8';
-    $dbName = 'iqu';
-    $userName = 'IQUWC';
+    $dbName = 'model';
+    $userName = 'PHPModel';
     $userPwd = 'Pa$$w0rd';
     $dsn = $sqlDriver.':host='.$hostname.';dbname='.$dbName.';port='.$port.';charset='.$charset;
     try{

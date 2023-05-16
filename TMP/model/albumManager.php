@@ -7,8 +7,8 @@
 
 function getAlbums(){
         require "usersManager.php";
-        $userID = getUserID($_SESSION['userEmailAddress']);
-        $query = "SELECT id, name, level FROM quizes WHERE users_id=". $userID[0] .";";
+        $query = "SELECT id, name, details FROM albums;";
+        require "dbConnector.php";
         $result=executeQuerySelect($query);
 
         return $result;
@@ -18,6 +18,7 @@ function getAlbum($id){
     require "usersManager.php";
     $userID = getUserID($_SESSION['userEmailAddress']);
     $query = "SELECT id, name, users.username FROM albums INNER JOIN users  WHERE id=". $id .";";
+    require "dbConnector.php";
     $result=executeQuerySelect($query);
 
     return $result;

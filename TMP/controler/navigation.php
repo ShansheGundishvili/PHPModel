@@ -43,14 +43,19 @@ function contact()
 function albums()
 {
     require "model/albumManager.php";
-    $myQuizzes = getAlbums();
+    $albums = getAlbums();
     require "view/albums.php";
 }
 
 function album($id){
 
     require "model/albumManager.php";
-    $myQuizzes = getAlbum($id);
+    $album = getAlbum($id);
     require "view/album.php";
 
+}
+
+function registerView()
+{
+    require "view/Register.php";
 }
