@@ -107,20 +107,20 @@ ob_start();
                                             </div>
 
                                         </div>
-                                    </div>
-                                    <?php if(isset($registerErrorMessage)): ?>
-                                        <p>Email déjà utilisé</p>
+                                    </div><p>
+                                    <?php if(isset($registerErrorMessage)): echo $registerErrorMessage?>
                                     <?php elseif(!isset($registerErrorMessage)): ?>
-                                        <?php if(isset($registerPswErrorMessage)): ?>
-                                            <p>Mot de passe identique</p>
+                                        <?php if(isset($registerPswErrorMessage)): echo $registerPswErrorMessage?>
+
                                         <?php elseif(!isset($registerPswErrorMessage)): ?>
 
                                         <?php endif; ?>
-                                    <?php endif; ?>
+                                    <?php endif; ?></p>
+
 
                                     <div class="s-12 m-12 l-4">
                                         <button class="submit-form button background-primary border-radius text-white"
-                                                type="submit">S'enregistrer
+                                                type="submit">Register
                                         </button>
                                     </div>
                             </form>

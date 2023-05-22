@@ -101,6 +101,19 @@ function checkUsername($username)
 
 }
 
+function checkUsernameUpdate($username)
+{
+
+    $sep = '\'';
+    $userTypeQuery = 'SELECT username FROM users WHERE NOT  username =' . $sep . $username . $sep . ";";
+
+    require_once "model/dbConnector.php";
+    $queryResult = executeQuerySelect($userTypeQuery);
+
+    return $queryResult;
+
+}
+
 /**
  * @author : Shanshe Gundishvili
  * @date : 20/05/2021
@@ -137,4 +150,63 @@ function modifyUserEmailM($FEmail, $NEmail)
 
     $result = 1;
     return $result;
+}
+
+function getSubscribeM($email){
+
+    $result = false;
+    $sep = '\'';
+
+    $query = 'SELECT subscriber FROM users WHERE email=' . $sep . $email . $sep . ";";
+    require_once "model/dbConnector.php";
+    $queryResult = executeQuerySelect($query);
+
+
+    return $queryResult;
+
+}
+
+function subscribeM($email): void
+{
+
+    $subscribed = getSubscribeM($email);
+
+    if ($subscribed[0][0] == 0){
+        $res = 1;
+    }else{
+        $res = 0;
+    }
+
+    $sep = '\'';
+    $Query = "UPDATE users SET subscriber =" . $sep . $res . $sep . " WHERE email =" . $sep . $email . $sep . ";";
+    require_once "model/dbConnector.php";
+    $queryResult = executeQueryInsert($Query);
+}
+
+
+function feedbackM($name, $email, $message){
+
+    $sep = '\'';
+    $Query = "insert into users (Name, Email, Details) VALUES =" . $sep . $name . $sep . ", " . $sep . $email . $sep . ", " . $sep . $message . $sep . ";";
+    require_once "model/dbConnector.php";
+    $queryResult = executeQueryInsert($Query);
+}
+
+function getUserInfo($email){
+
+    $sep = '\'';
+    $Query = "SELECT email, username, NUMBER, address, firstname, lastname FROM users WHERE email =" . $sep . $email . $sep . ";";
+    require_once "model/dbConnector.php";
+    $queryResult = executeQuerySelect($Query);
+    return $queryResult[0];
+
+}
+
+function updateAccount($userEmailAddress, $username, $userNumber, $userAddress, $userFirstname, $userLastname, $actualEmail){
+
+    $sep = '\'';
+
+    $query = "UPDATE users SET email =" . $sep . $userEmailAddress . $sep . ", username =". $sep . $username . $sep .", number=". $sep . $userNumber . $sep . ", address=". $sep . $userAddress . $sep . ", firstname =". $sep . $userFirstname . $sep . ", lastname =" . $sep . $userLastname . $sep ." WHERE email =" . $sep . $actualEmail . $sep . ";";
+    $queryResult = executeQueryInsert($query);
+    return 1;
 }

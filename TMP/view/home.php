@@ -27,7 +27,6 @@ ob_start();
                 </div>
                 <div class="s-12 m-12 l-6">
                     <div class='sk-instagram-feed' data-embed-id='140788'></div><script src='https://widgets.sociablekit.com/instagram-feed/widget.js' async defer></script>
-
                 </div>
             </div>
         </div>

@@ -29,6 +29,7 @@ ob_start();
                                 <tr>
                                     <td>User</td>
                                     <td>Gallery name</td>
+                                    <td class="background-primary text-center text-white"><a  href="index.php?action=createAlbumView">create</a></td>
                                 </tr>
                                 <?php foreach ($albums as $album){?>
                                 <tr class="block-bordered">

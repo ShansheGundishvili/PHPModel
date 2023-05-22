@@ -63,7 +63,12 @@ ob_start();
                                     <div class="s-12 m-12 l-6">
                                         <div class="s-12 m-12 l-5 ">
                                             <button class="submit-form button background-primary border-radius text-white"
-                                                    type="submit">Subscribe
+                                                    type="submit">
+                                                <?php     if ($sub[0][0] == 0){
+                                                    echo "Subscribe";
+                                                }else{
+                                                    echo "Unsubscribe";
+                                                } ?>
                                             </button>
                                         </div>
                                     </div>

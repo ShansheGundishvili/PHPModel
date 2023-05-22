@@ -8,7 +8,7 @@
  * @Version : 17-02-2021
  */ 
 
-require "controler/annonce.php";
+require "controler/album.php";
 require "controler/users.php";
 require "controler/navigation.php";
 
@@ -41,6 +41,9 @@ if (isset($_GET['action'])) {
         case 'contact' :
             contact();
             break;
+        case 'feedback' :
+            feedback($_POST);
+            break;
         case 'albums' :
             albums();
             break;
@@ -49,6 +52,18 @@ if (isset($_GET['action'])) {
             break;
         case 'registerView' :
             registerView();
+            break;
+        case 'modifyUserView' :
+            modifyUserView();
+            break;
+        case 'modifyUser' :
+            modifyUser($_POST);
+            break;
+        case 'modifyPassword' :
+            modifyUserPassC($_POST);
+            break;
+        case 'createAlbumView' :
+            createAlbumView();
             break;
         default :
             lost();

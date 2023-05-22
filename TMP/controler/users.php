@@ -91,13 +91,12 @@ function register($registerRequest)
                         require_once "view/register.php";
                     }
                 } else {
-                    $registerErrorMessage = "Email already exists";
+                    $registerErrorMessage = "Username already in use";
                     require_once "view/register.php";
                 }
-                $registerErrorMessage = "Username already in use";
-                require_once "view/register.php";
             }
-            require_once "view/home.php";
+            $registerErrorMessage = "Email already exists";
+            require_once "view/register.php";
         }
     } catch (ModelDataBaseException $ex) {
         $registerErrorMessage = "we are dead";
@@ -137,37 +136,82 @@ function modifyUserPassC($request)
  * @date : 20/05/2021
  * @Goal : to modify Email of existing user
  */
-function modifyUserEmailC($request)
+function modifyUser($request)
 {
-    if (isset($_SESSION['userEmailAddress']) && isset($request['Email'])) {
-        require_once "model/usersManager.php";
-        $userEmailAddress = $request['Email'];
-        $check = checkRegister($userEmailAddress);
-        if (!(isset($check[0][0]))) {
-            $registerPswErrorMessage = null;
-            require_once "model/usersManager.php";
-            if (modifyUserEmailM($_SESSION['userEmailAddress'], $request['Email'])) {
-                logout();
-                require_once "controler/annonce.php";
-                home();
-            } else {
-                $ChPswErrorMessage = "our developers don't know the reason of this error";
-                require_once "view/register.php";
-            }
-        }else {
-            $registerErrorMessage = "Email already exists";
-            require_once "view/register.php";
-        }
-    } else { //donnes non remplies
+    try {
+        if (isset($request['inputUserEmailAddress']) ) {
 
-        require "view/modifUserInfo.php";
+            $userEmailAddress = $request['inputUserEmailAddress'];
+            $username = $request['inputUsername'];
+            $userNumber = $request['inputNumber'];
+            $userAddress = $request['inputAddress'];
+            $userFirstname = $request['inputFirstname'];
+            $userLastname = $request['inputLastname'];
+
+            require_once "model/usersManager.php";
+            $check = checkRegister($userEmailAddress);
+            if (!(isset($check[0][0]))) {
+                $checkUsername = checkUsernameUpdate($username);
+                if (!(isset($checkUsername[0][0]))) {
+                    $registerErrorMessage = null;
+                    require_once "model/usersManager.php";
+                    if (updateAccount($userEmailAddress, $username, $userNumber, $userAddress, $userFirstname, $userLastname, $_SESSION['userEmailAddress'])) {
+                        $_SESSION['userEmailAddress'] = $userEmailAddress;
+                        require_once "navigation.php";
+                        home();
+
+                    } else {
+                        $registerErrorMessage = "our developers don't know the reason of this error";
+                        modifyUserView($registerErrorMessage);              }
+                } else {
+                    $registerErrorMessage = "Username already in use";
+                    modifyUserView($registerErrorMessage);          }
+            }
+            $registerErrorMessage = "Email already exists";
+            modifyUserView($registerErrorMessage);
+        }
+    } catch (ModelDataBaseException $ex) {
+        $registerErrorMessage = "we are dead";
+        return "view/lost.php";
     }
+    require "view/home.php";
 }
 
 
 
 function subscribe(){
 
-    require_once "";
 
+    require_once "model/usersManager.php";
+    subscribeM($_SESSION['userEmailAddress']);
+    require_once "view/home.php";
+}
+
+
+
+// Calls about page
+function newsletter()
+{
+    require "model/usersManager.php";
+    $sub = getSubscribeM($_SESSION['userEmailAddress']);
+
+
+
+    require "view/Newsletter.php";
+}
+
+function feedback($request){
+
+    require "model/usersManager.php";
+    feedbackM($request['name'], $request['email'], $request['message']);
+    require "view/home.php";
+
+
+}
+
+
+function modifyUserView($errorMessage = ""){
+    require_once "model/usersManager.php";
+    $userInfo = getUserInfo($_SESSION['userEmailAddress']);
+    require_once "view/modifyUser.php";
 }
