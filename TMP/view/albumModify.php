@@ -40,7 +40,7 @@ ob_start();
         <?php foreach ($images as $image) {?>
                 <div>
                     <img src="<?php echo $image['path'] ?>">
-                    <form class="customform" action="/index.php?action=DeleteImage&id=<?php echo $image['id'] ?>&albumId=<?php echo $album[0]['id']?>">
+                    <form class="customform" action="/index.php?action=deleteImage&id=<?php echo $image['id'] ?>&albumId=<?php echo $album[0]['id']?>" method="POST">
                         <button class="background-primary" type="submit">Delete Image</button>
                     </form>
                 </div>

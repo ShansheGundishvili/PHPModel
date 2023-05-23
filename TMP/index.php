@@ -72,7 +72,7 @@ if (isset($_GET['action'])) {
             modifyAlbum($_GET['id']);
             break;
         case 'deleteImage' :
-            deleteImage($_GET['id'], $_GET['albumID']);
+            deleteImage($_GET['id'], $_GET['albumId']);
             break;
         case 'addImage' :
             addImage($_GET['albumId']);

@@ -35,10 +35,10 @@ function saveImages($userID, $albumIdSetter = ""){
 
     $additioner = countAlbumIdImages($albumId[0][0]);
     // Looping all files
-    for ($i = $additioner; $i < $countFiles+$additioner; $i++) {
-
+    for ($i = 0; $i < $countFiles; $i++) {
+        $additionerInside = $i+$additioner[0][0];
         $ext = pathinfo($_FILES['inputPictures']['name'][$i], PATHINFO_EXTENSION);
-        $filename = $userID['id'] . "-" . $albumId[0][0]. "-" . $i;
+        $filename = $userID['id'] . "-" . $albumId[0][0]. "-" . $additionerInside;
         $fileDest = 'data/images/' . $filename . "." . $ext;
         // Upload file
         move_uploaded_file($_FILES['inputPictures']['tmp_name'][$i], $fileDest);
@@ -68,6 +68,7 @@ function getImages($id){
 
 function deleteImageM($id){
     $query = "DELETE FROM images WHERE images.id = ". $id . ";";
+    require_once "dbConnector.php";
     executeQueryInsert($query);
 }
 
