@@ -29,15 +29,21 @@ ob_start();
                                 <tr>
                                     <td>User</td>
                                     <td>Gallery name</td>
-                                    <td class="background-primary text-center text-white"><a  href="index.php?action=createAlbumView">create</a></td>
+                                    <td class="background-primary text-center"><a class="text-white" href="/index.php?action=createAlbumView"><div class="full-width" >create</div></a></td>
                                 </tr>
                                 <?php foreach ($albums as $album){?>
                                 <tr class="block-bordered">
                                     <td><?php echo $album['username']?></td>id
                                     <td><?php echo $album['name']?></td>
-                                    <td class="text-center background-dark"><a class="text-white" href="/index.php?action=gallery&id=<?php echo $album['id']?>">
-                                            <div class="full-width">Visit</div>
-                                        </a></td>
+                                    <td class="text-center background-dark">
+                                        <?php if(isset($_SESSION['userEmailAddress'])){ if($_SESSION['userEmailAddress'] == $album['email']){ ?>
+                                        <a class="text-white" href="/index.php?action=modifyAlbum&id=<?php echo $album['id']?>">
+                                            <div class="full-width" >modify</div>
+                                        </a><?php }}?>
+                                        <a class="text-white" href="/index.php?action=album&id=<?php echo $album['id']?>">
+                                            <div class="full-width" >Visit</div>
+                                        </a>
+                                    </td>
                                 </tr>
                                 <?php }?>
                             </table>

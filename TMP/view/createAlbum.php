@@ -27,7 +27,7 @@ ob_start();
                         <input class="form-control" type="text" name="details" id="details" placeholder="details" value="" required>
                     </div>
                     <div class="form-group">
-                        <label for="inputPictures">Photos de l'appartement *</label>
+                        <label for="inputPictures">images</label>
                         <input class="form-control" type="file" name="inputPictures[]" id="inputPictures" accept="image/*" placeholder="Photos" required multiple>
                     </div>
                 </div>

@@ -65,6 +65,18 @@ if (isset($_GET['action'])) {
         case 'createAlbumView' :
             createAlbumView();
             break;
+        case 'createAlbum' :
+            createAlbum($_POST);
+            break;
+        case 'modifyAlbum' :
+            modifyAlbum($_GET['id']);
+            break;
+        case 'deleteImage' :
+            deleteImage($_GET['id'], $_GET['albumID']);
+            break;
+        case 'addImage' :
+            addImage($_GET['albumId']);
+            break;
         default :
             lost();
     }

@@ -14,15 +14,26 @@ $title = 'Gallery';
 ob_start();
 ?>
 
+    <header class="section background-primary text-center">
+        <h1 class="text-white margin-bottom-0 text-size-50 text-thin text-line-height-1"><?php echo $album[0]['details']?></h1>
+    </header>
 
+<div class="margin-top-bottom-10 padding-2x">
+
+    <select id="dropdown" class="background-primary h1">
+        <option value="" selected disabled hidden>images</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+    </select>
         <!-- Content -->
-        <div class="gallery">
-            <img src="view/img/blog-01.jpg" alt="Image 1">
-            <img src="view/img/blog-02.jpg" alt="Image 3">
-            <img src="view/img/blog-03.jpg" alt="Image 2">
-            <img src="view/img/blog-04.jpg" alt="Image 4">
-            <img src="view/img/blog-05.jpg" alt="Image 5">
-            <img src="view/img/blog-06.jpg" alt="Image 6">
+        <div id="gallery" class="gallery"">
+            <?php foreach ($images as $image) {?>
+            <img src="<?php echo $image['path'] ?>">
+
+            <?php }?>
         </div>
 
 
@@ -33,6 +44,8 @@ ob_start();
             </div>
         </div>
     <script type="text/javascript" src="/view/js/GalleryJS.js"></script>
+
+</div>
 <?php
 $content = ob_get_clean();
 require 'gabarit.php';

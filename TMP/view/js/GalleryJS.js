@@ -27,3 +27,18 @@
     // Hide the modal
     modal.style.display = 'none';
 });
+
+
+
+
+    document.getElementById("dropdown").addEventListener("change", function() {
+        var value = this.value;
+        var cssRule = "grid-template-columns: repeat(" + value + ", 1fr);";
+        var gallery = document.getElementsByClassName("gallery")[0];
+        var imageHeight = 600 / value; // Adjust this value as needed
+
+        gallery.style.cssText = cssRule;
+        Array.from(gallery.getElementsByTagName("img")).forEach(function(img) {
+            img.style.height = imageHeight + "px";
+        });
+    });
