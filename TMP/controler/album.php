@@ -1,10 +1,6 @@
 <?php
-/*
- * author : Shanshe Gundishvili
- * date : 03/01/2021
- * Goal : to link view and model of articles
- */
-
+//</album>
+    //<createAlbum>
 function createAlbumView(){
     require_once "view/createAlbum.php";
 }
@@ -28,24 +24,9 @@ function createAlbum($data){
     }
 
 }
+    //</createAlbum>
 
-
-function albums()
-{
-    require_once "model/albumManager.php";
-    $albums = getAlbums();
-    require_once "view/albums.php";
-}
-
-function album($id){
-
-    require_once "model/albumManager.php";
-    $album = getAlbum($id);
-    $images = getImages($id);
-    require_once "view/album.php";
-
-}
-
+    //<modifyAlbum>
 function modifyAlbum($id){
 
     require_once "model/albumManager.php";
@@ -71,3 +52,21 @@ function addImage($albumId){
     saveImages($userId, $albumId);
     modifyAlbum($albumId);
 }
+    //</modifyAlbum>
+
+function albums()
+{
+    require_once "model/albumManager.php";
+    $albums = getAlbums();
+    require_once "view/albums.php";
+}
+
+function album($id){
+
+    require_once "model/albumManager.php";
+    $album = getAlbum($id);
+    $images = getImages($id);
+    require_once "view/album.php";
+
+}
+//</album>

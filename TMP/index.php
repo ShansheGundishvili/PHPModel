@@ -20,54 +20,61 @@ if (isset($_GET['action'])) {
         case 'home' :
             home();
             break;
+            //<user>
+                //<newsletter>
         case 'newsletter' :
             newsletter();
             break;
         case 'subscribe' :
             subscribe();
             break;
+                //</newsletter>
         case 'login' :
             login($_POST);
             break;
         case 'logout' :
             logout();
             break;
+                //<register>
         case 'register' :
             register($_POST);
             break;
-        case 'createAd' :
-            createAd();
+        case 'registerView' :
+            registerView();
             break;
-        case 'contact' :
-            contact();
+                //</register>
+                //<modifyUser>
+        case 'modifyUserView' :
+            modifyUserView();
             break;
-        case 'feedback' :
-            feedback($_POST);
+                    //<modifyUserInfo>
+        case 'modifyUser' :
+            modifyUser($_POST);
             break;
+                    //<modifyUserInfo>
+                    //</modifyUserPassword>
+        case 'modifyPassword' :
+            modifyUserPassC($_POST);
+            break;
+                    //</modifyPassword>
+                //</modifyUser>
+            //</user>
+            //<album>
         case 'albums' :
             albums();
             break;
         case 'album' :
             album($_GET['id']);
             break;
-        case 'registerView' :
-            registerView();
-            break;
-        case 'modifyUserView' :
-            modifyUserView();
-            break;
-        case 'modifyUser' :
-            modifyUser($_POST);
-            break;
-        case 'modifyPassword' :
-            modifyUserPassC($_POST);
-            break;
+                //<createAlbum>
         case 'createAlbumView' :
             createAlbumView();
             break;
         case 'createAlbum' :
             createAlbum($_POST);
             break;
+                //</createAlbum>
+                //<modifyAlbum>
         case 'modifyAlbum' :
             modifyAlbum($_GET['id']);
             break;
@@ -77,6 +84,16 @@ if (isset($_GET['action'])) {
         case 'addImage' :
             addImage($_GET['albumId']);
             break;
+                //</modifyAlbum>
+            //</album>
+            //<contact>
+        case 'contact' :
+            contact();
+            break;
+        case 'feedback' :
+            feedback($_POST);
+            break;
+            //</contact>
         default :
             lost();
     }

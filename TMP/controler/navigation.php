@@ -22,23 +22,3 @@ function lost()
 {
     require "view/lost.php";
 }
-
-// Calls the page to create an ad
-function createAd()
-{
-    require "view/createAd.php";
-}
-
-// Calls home page
-function contact()
-{
-    require "view/contact.php";
-}
-
-
-function registerView()
-{
-    require "view/Register.php";
-}
-
-

@@ -21,7 +21,9 @@
     <link rel="stylesheet" href="/view/owl-carousel/owl.theme.css">
     <!-- CUSTOM STYLE -->
       <link rel="stylesheet" href="/view/css/template-style.css">
+      <!-- //<album> -->
       <link rel="stylesheet" href="/view/css/GalleryCSS.css">
+      <!-- //</album> -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="/view/js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="/view/js/jquery-ui.min.js"></script>
@@ -41,9 +43,11 @@
             
             <ul class="right chevron">
                 <li><a href="index.php?action=home">Home</a></li>
+                <!-- //<album> -->
                 <li><a href="index.php?action=albums">Albums</a></li>
+                <!-- //</album> -->
                 <li><a href="index.php?action=contact">Contact</a></li>
-
+                <!-- //<user> -->
                 <?php if(isset($_SESSION['userEmailAddress'])): ?>
                     <li><a href="index.php?action=newsletter">Newsletter</a></li>
                     <li><a href="index.php?action=logout">Logout / <?= $_SESSION['userEmailAddress'] ?></a></li>
@@ -52,6 +56,8 @@
                     <li><a href="index.php?action=login">Login</a></li>
                     <li><a href="index.php?action=registerView">Register</a></li>
                 <?php endif; ?>
+                <!-- //</user> -->
+
 
             </ul>
           </div>

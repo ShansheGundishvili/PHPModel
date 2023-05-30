@@ -1,15 +1,11 @@
 <?php
 /**
  * @author : Shanshe Gundishvili
- * @date : 20/05/2021
+ * @date : 05/2023
  * @Goal : to treat user's information
  */
 
-/**
- * @author : Shanshe Gundishvili
- * @date : 20/05/2021
- * @Goal : to check if login is correct, provided by user
- */
+//<users>
 function isLoginCorrect($userEmailAddress, $userPsw)
 {
     $result = false;
@@ -35,11 +31,8 @@ function isLoginCorrect($userEmailAddress, $userPsw)
 }
 
 
-/**
- * @author : Shanshe Gundishvili
- * @date : 20/05/2021
- * @Goal : to register new account
- */
+
+//<regsiter>
 function registerNewAccount($userEmailAddress, $userPsw, $username, $userNumber, $userAddress, $userFirstname, $userLastname)
 {
 
@@ -55,17 +48,7 @@ function registerNewAccount($userEmailAddress, $userPsw, $username, $userNumber,
     return $result;
 }
 
-function getUserID($userEmailAddress)
-{
 
-    $sep = '\'';
-    $userTypeQuery = 'SELECT id FROM users WHERE email=' . $sep . $userEmailAddress . $sep . ";";
-
-    require_once "model/dbConnector.php";
-    $queryResult = executeQuerySelect($userTypeQuery);
-
-    return $queryResult[0];
-}
 
 
 /**
@@ -100,58 +83,48 @@ function checkUsername($username)
     return $queryResult;
 
 }
+//</regsiter>
 
-function checkUsernameUpdate($username)
-{
-
-    $sep = '\'';
-    $userTypeQuery = 'SELECT username FROM users WHERE NOT  username =' . $sep . $username . $sep . ";";
-
-    require_once "model/dbConnector.php";
-    $queryResult = executeQuerySelect($userTypeQuery);
-
-    return $queryResult;
-
-}
-
-/**
- * @author : Shanshe Gundishvili
- * @date : 20/05/2021
- * @Goal : to modify user's password
- */
+//<modifyUser>
 function modifyUserPassM($email, $password)
 {
 
     $result = false;
     $sep = '\'';
     $userHashPsw = password_hash($password, PASSWORD_DEFAULT);
-    $Query = "UPDATE users SET password =" . $sep . $userHashPsw . $sep . " WHERE email =" . $sep . $email . $sep . ";";
+    $query = "UPDATE users SET password =" . $sep . $userHashPsw . $sep . " WHERE email =" . $sep . $email . $sep . ";";
     require_once "model/dbConnector.php";
-    $queryResult = executeQueryInsert($Query);
+    $queryResult = executeQueryInsert($query);
 
     $result = 1;
     return $result;
 }
 
 
-/**
- * @author : Shanshe Gundishvili
- * @date : 20/05/2021
- * @Goal : to modify user's Email
- */
-function modifyUserEmailM($FEmail, $NEmail)
-{
 
-    $result = false;
+function getUserInfo($email){
+
     $sep = '\'';
-    $Query = "UPDATE users SET email =" . $sep . $NEmail . $sep . " WHERE email =" . $sep . $FEmail . $sep . ";";
+    $Query = "SELECT email, username, NUMBER, address, firstname, lastname FROM users WHERE email =" . $sep . $email . $sep . ";";
     require_once "model/dbConnector.php";
-    $queryResult = executeQueryInsert($Query);
+    $queryResult = executeQuerySelect($Query);
+    return $queryResult[0];
 
-    $result = 1;
-    return $result;
 }
 
+
+function updateAccount($userEmailAddress, $username, $userNumber, $userAddress, $userFirstname, $userLastname, $actualEmail){
+
+    $sep = '\'';
+
+    $query = "UPDATE users SET email =" . $sep . $userEmailAddress . $sep . ", username =". $sep . $username . $sep .", number=". $sep . $userNumber . $sep . ", address=". $sep . $userAddress . $sep . ", firstname =". $sep . $userFirstname . $sep . ", lastname =" . $sep . $userLastname . $sep ." WHERE email =" . $sep . $actualEmail . $sep . ";";
+    $queryResult = executeQueryInsert($query);
+    return 1;
+}
+//</modifyUser>
+
+
+//<newsletter>
 function getSubscribeM($email){
 
     $result = false;
@@ -165,6 +138,7 @@ function getSubscribeM($email){
     return $queryResult;
 
 }
+
 
 function subscribeM($email): void
 {
@@ -182,8 +156,27 @@ function subscribeM($email): void
     require_once "model/dbConnector.php";
     $queryResult = executeQueryInsert($Query);
 }
+//</newsletter>
+
+//<album>
+function getUserID($userEmailAddress)
+{
+
+    $sep = '\'';
+    $userTypeQuery = 'SELECT id FROM users WHERE email=' . $sep . $userEmailAddress . $sep . ";";
+
+    require_once "model/dbConnector.php";
+    $queryResult = executeQuerySelect($userTypeQuery);
+
+    return $queryResult[0];
+}
+//<album>
+
+//</user>
 
 
+
+//<contact>
 function feedbackM($name, $email, $message){
 
     $sep = '\'';
@@ -191,22 +184,8 @@ function feedbackM($name, $email, $message){
     require_once "model/dbConnector.php";
     $queryResult = executeQueryInsert($Query);
 }
+//</contact>
 
-function getUserInfo($email){
 
-    $sep = '\'';
-    $Query = "SELECT email, username, NUMBER, address, firstname, lastname FROM users WHERE email =" . $sep . $email . $sep . ";";
-    require_once "model/dbConnector.php";
-    $queryResult = executeQuerySelect($Query);
-    return $queryResult[0];
 
-}
 
-function updateAccount($userEmailAddress, $username, $userNumber, $userAddress, $userFirstname, $userLastname, $actualEmail){
-
-    $sep = '\'';
-
-    $query = "UPDATE users SET email =" . $sep . $userEmailAddress . $sep . ", username =". $sep . $username . $sep .", number=". $sep . $userNumber . $sep . ", address=". $sep . $userAddress . $sep . ", firstname =". $sep . $userFirstname . $sep . ", lastname =" . $sep . $userLastname . $sep ." WHERE email =" . $sep . $actualEmail . $sep . ";";
-    $queryResult = executeQueryInsert($query);
-    return 1;
-}
