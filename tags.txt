@@ -1,0 +1,26 @@
+//<user>
+	//<newsletter>
+        //</newsletter>
+        //<register>
+        //</register>
+        //<modifyUser>
+        	//<modifyUserInfo>
+        	//<modifyUserInfo>
+		//</modifyPassword>
+        //</modifyUser>
+        //<album>
+	        //<createAlbum>
+		//</createAlbum>
+	        //<modifyAlbum>
+	        //</modifyAlbum>
+        //</album>
+//</user>
+//<contact>
+//</contact>
+
+
+
+# To keep a functionality remove "//" before <tag>
+# To remove a functionality keep "//" before <tag>
+# 
+# Finally, when everything is up to your taste execute Modifier.ps1

@@ -21,9 +21,7 @@
     <link rel="stylesheet" href="/view/owl-carousel/owl.theme.css">
     <!-- CUSTOM STYLE -->
       <link rel="stylesheet" href="/view/css/template-style.css">
-      <!-- //<album> -->
       <link rel="stylesheet" href="/view/css/GalleryCSS.css">
-      <!-- //</album> -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="/view/js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="/view/js/jquery-ui.min.js"></script>
@@ -46,15 +44,24 @@
                 <!-- //<album> -->
                 <li><a href="index.php?action=albums">Albums</a></li>
                 <!-- //</album> -->
+                <!-- //<contact> -->
                 <li><a href="index.php?action=contact">Contact</a></li>
+                <!-- //</contact> -->
                 <!-- //<user> -->
                 <?php if(isset($_SESSION['userEmailAddress'])): ?>
+                    <!-- //<newsletter> -->
                     <li><a href="index.php?action=newsletter">Newsletter</a></li>
+                    <!-- //</newsletter> -->
                     <li><a href="index.php?action=logout">Logout / <?= $_SESSION['userEmailAddress'] ?></a></li>
+                    <!-- //<modifyUser> -->
                     <li><a href="index.php?action=modifyUserView">User Settings</a></li>
+                    <!-- //</modifyUser> -->
                 <?php elseif(!isset($_SESSION['userEmailAddress'])): ?>
                     <li><a href="index.php?action=login">Login</a></li>
+                    <!-- //<register> -->
                     <li><a href="index.php?action=registerView">Register</a></li>
+                    <!-- //</register> -->
+
                 <?php endif; ?>
                 <!-- //</user> -->
 

@@ -6,7 +6,7 @@
  * @Author : Created by Shanshe GUNDISHVILI
  * @Author : Updated by Shanshe GUNDISHVILI
  * @Version : 17-02-2021
- */ 
+ */
 
 require "controler/album.php";
 require "controler/users.php";
@@ -20,61 +20,60 @@ if (isset($_GET['action'])) {
         case 'home' :
             home();
             break;
-            //<user>
-                //<newsletter>
+        //<user>
+        //<newsletter>
         case 'newsletter' :
             newsletter();
             break;
         case 'subscribe' :
             subscribe();
             break;
-                //</newsletter>
+        //</newsletter>
         case 'login' :
             login($_POST);
             break;
         case 'logout' :
             logout();
             break;
-                //<register>
+        //<register>
         case 'register' :
             register($_POST);
             break;
         case 'registerView' :
             registerView();
             break;
-                //</register>
-                //<modifyUser>
+        //</register>
+        //<modifyUser>
         case 'modifyUserView' :
             modifyUserView();
             break;
-                    //<modifyUserInfo>
+        //<modifyUserInfo>
         case 'modifyUser' :
             modifyUser($_POST);
             break;
-                    //<modifyUserInfo>
-                    //</modifyUserPassword>
+        //<modifyUserInfo>
+        //</modifyUserPassword>
         case 'modifyPassword' :
             modifyUserPassC($_POST);
             break;
-                    //</modifyPassword>
-                //</modifyUser>
-            //</user>
-            //<album>
+        //</modifyPassword>
+        //</modifyUser>
+        //<album>
         case 'albums' :
             albums();
             break;
         case 'album' :
             album($_GET['id']);
             break;
-                //<createAlbum>
+        //<createAlbum>
         case 'createAlbumView' :
             createAlbumView();
             break;
         case 'createAlbum' :
             createAlbum($_POST);
             break;
-                //</createAlbum>
-                //<modifyAlbum>
+        //</createAlbum>
+        //<modifyAlbum>
         case 'modifyAlbum' :
             modifyAlbum($_GET['id']);
             break;
@@ -84,16 +83,18 @@ if (isset($_GET['action'])) {
         case 'addImage' :
             addImage($_GET['albumId']);
             break;
-                //</modifyAlbum>
-            //</album>
-            //<contact>
+        //</modifyAlbum>
+        //</album>
+        //</user>
+
+        //<contact>
         case 'contact' :
             contact();
             break;
         case 'feedback' :
             feedback($_POST);
             break;
-            //</contact>
+        //</contact>
         default :
             lost();
     }

@@ -5,7 +5,7 @@
  * @Goal : to treat user's information
  */
 
-//<users>
+//<user>
 function isLoginCorrect($userEmailAddress, $userPsw)
 {
     $result = false;
@@ -32,7 +32,7 @@ function isLoginCorrect($userEmailAddress, $userPsw)
 
 
 
-//<regsiter>
+//<register>
 function registerNewAccount($userEmailAddress, $userPsw, $username, $userNumber, $userAddress, $userFirstname, $userLastname)
 {
 
@@ -83,7 +83,7 @@ function checkUsername($username)
     return $queryResult;
 
 }
-//</regsiter>
+//<register>
 
 //<modifyUser>
 function modifyUserPassM($email, $password)
@@ -170,7 +170,7 @@ function getUserID($userEmailAddress)
 
     return $queryResult[0];
 }
-//<album>
+//</album>
 
 //</user>
 

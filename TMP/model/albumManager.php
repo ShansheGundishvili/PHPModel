@@ -88,4 +88,4 @@ function countAlbumIdImages($albumId){
 
 
 //</album>
-//<user>
+//</user>

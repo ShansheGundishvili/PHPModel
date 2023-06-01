@@ -1,5 +1,6 @@
 <?php
-//</album>
+//<user>
+//<album>
     //<createAlbum>
 function createAlbumView(){
     require_once "view/createAlbum.php";
@@ -70,3 +71,4 @@ function album($id){
 
 }
 //</album>
+//</user>

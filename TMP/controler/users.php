@@ -5,7 +5,7 @@
  * @author    Updated by Shanshe Gundishvili
  * @version   10.05.2021
  */
-//</users>
+//<user>
 function  login($loginRequest)
 {
     $error = 0;
@@ -189,7 +189,7 @@ function registerView()
     require "view/Register.php";
 }
     //</register>
-//</users>
+//</user>
 
 
 //<contact>
