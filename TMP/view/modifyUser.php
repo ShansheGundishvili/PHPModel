@@ -117,6 +117,13 @@ ob_start();
                                 <p><?php if(isset($errorMessage)){echo $errorMessage;}?></p>
                                 <div class="s-12 m-12 l-4"><button class="submit-form button background-primary border-radius text-white" type="submit">Modify Password</button></div>
                         </form>
+
+                        <form class="customform" action="../index.php?action=deleteUser" method="POST" enctype="multipart/form-data">
+                            <div class="line">
+                                <p><?php if(isset($errorMessage)){echo $errorMessage;}?></p>
+                                <div class="s-12 m-12 l-4"><button class="submit-form button background-primary border-radius text-white" type="submit">Delete account</button></div>
+                        </form>
+
                     </div>
                 </div>
             </div>

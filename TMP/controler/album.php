@@ -53,6 +53,21 @@ function addImage($albumId){
     saveImages($userId, $albumId);
     modifyAlbum($albumId);
 }
+
+function deleteAlbum($id){
+    require_once "model/albumManager.php";
+    require_once "model/usersManager.php";
+    $userId = getUserID($_SESSION['userEmailAddress']);
+    $albumUserID = getAlbumUserID($id);
+    if(isset($albumUserID[0])){
+        if($userId[0] == $albumUserID[0][0]){
+            deleteAlbumM($id);
+        }
+
+    }
+
+    albums();
+}
     //</modifyAlbum>
 
 function albums()

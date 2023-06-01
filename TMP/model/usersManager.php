@@ -105,9 +105,9 @@ function modifyUserPassM($email, $password)
 function getUserInfo($email){
 
     $sep = '\'';
-    $Query = "SELECT email, username, NUMBER, address, firstname, lastname FROM users WHERE email =" . $sep . $email . $sep . ";";
+    $query = "SELECT email, username, NUMBER, address, firstname, lastname FROM users WHERE email =" . $sep . $email . $sep . ";";
     require_once "model/dbConnector.php";
-    $queryResult = executeQuerySelect($Query);
+    $queryResult = executeQuerySelect($query);
     return $queryResult[0];
 
 }
@@ -121,6 +121,31 @@ function updateAccount($userEmailAddress, $username, $userNumber, $userAddress, 
     $queryResult = executeQueryInsert($query);
     return 1;
 }
+
+
+function deleteAccountM($email){
+    require_once "model/dbConnector.php";
+    $sep = '\'';
+
+    $userID = getUserID($email);
+
+    $querySelectAlbums = "select id FROM albums WHERE users_id =" . $userID[0] . ";";
+    $albums = executeQuerySelect($querySelectAlbums);
+    foreach ($albums as $album){
+        $queryImage = "DELETE FROM images WHERE albums_id =" . $sep . $album['id'] . $sep . ";";
+        $queryResult = executeQueryInsert($queryImage);
+    }
+    $queryAlbum = "DELETE FROM albums WHERE users_id =" . $sep . $userID[0] . $sep . ";";
+    $queryResult = executeQueryInsert($queryAlbum);
+
+    $queryUser = "DELETE FROM users WHERE email =" . $sep . $email . $sep . ";";
+    $queryResult = executeQueryInsert($queryUser);
+
+    return 1;
+
+}
+
+
 //</modifyUser>
 
 
@@ -158,7 +183,6 @@ function subscribeM($email): void
 }
 //</newsletter>
 
-//<album>
 function getUserID($userEmailAddress)
 {
 
@@ -170,7 +194,6 @@ function getUserID($userEmailAddress)
 
     return $queryResult[0];
 }
-//</album>
 
 //</user>
 

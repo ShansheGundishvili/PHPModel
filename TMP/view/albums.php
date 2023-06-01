@@ -36,14 +36,19 @@ ob_start();
                                 </tr>
                                 <?php foreach ($albums as $album){?>
                                 <tr class="block-bordered">
-                                    <td><?php echo $album['username']?></td>id
+                                    <td><?php echo $album['username']?></td>
                                     <td><?php echo $album['name']?></td>
                                     <td class="text-center background-dark">
                                         <!-- //<albumModify> -->
                                         <?php if(isset($_SESSION['userEmailAddress'])){ if($_SESSION['userEmailAddress'] == $album['email']){ ?>
                                         <a class="text-white" href="/index.php?action=modifyAlbum&id=<?php echo $album['id']?>">
                                             <div class="full-width" >modify</div>
-                                        </a><?php }}?>
+                                        </a>
+                                            <a class="text-white" href="/index.php?action=deleteAlbum&id=<?php echo $album['id']?>">
+                                                <div class="full-width" >delete</div>
+                                            </a>
+
+                                        <?php }}?>
                                         <!-- //</albumModify> -->
                                         <a class="text-white" href="/index.php?action=album&id=<?php echo $album['id']?>">
                                             <div class="full-width" >Visit</div>

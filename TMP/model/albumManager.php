@@ -44,7 +44,29 @@ function deleteImageM($id){
     require_once "dbConnector.php";
     executeQueryInsert($query);
 }
+
+function deleteAlbumM($id){
+        require_once "model/dbConnector.php";
+        $sep = '\'';
+        $queryImage = "DELETE FROM images WHERE albums_id =" . $sep . $id . $sep . ";";
+        $queryResult = executeQueryInsert($queryImage);
+        $queryAlbum = "DELETE FROM albums WHERE id =" . $sep . $id . $sep . ";";
+        $queryResult = executeQueryInsert($queryAlbum);
+
+        return 1;
+
+}
+
+
 //<modifyAlbum>
+
+function getAlbumUserID($id){
+    $query = "SELECT users_id FROM albums WHERE id = ". $id . ";";
+    require_once "dbConnector.php";
+    $result = executeQuerySelect($query);
+    return $result;
+}
+
 
 function getImages($id){
     $sep = '\'';
@@ -85,6 +107,8 @@ function countAlbumIdImages($albumId){
 
     return $result;
 }
+
+
 
 
 //</album>

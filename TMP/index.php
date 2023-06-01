@@ -57,6 +57,9 @@ if (isset($_GET['action'])) {
             modifyUserPassC($_POST);
             break;
         //</modifyPassword>
+        case 'deleteUser' :
+            deleteAccount($_SESSION['userEmailAddress']);
+        break;
         //</modifyUser>
         //<album>
         case 'albums' :
@@ -82,6 +85,9 @@ if (isset($_GET['action'])) {
             break;
         case 'addImage' :
             addImage($_GET['albumId']);
+            break;
+        case 'deleteAlbum' :
+            deleteAlbum($_GET['id']);
             break;
         //</modifyAlbum>
         //</album>

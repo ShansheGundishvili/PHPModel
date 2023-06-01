@@ -113,6 +113,15 @@ function modifyUserView($errorMessage = ""){
     $userInfo = getUserInfo($_SESSION['userEmailAddress']);
     require_once "view/modifyUser.php";
 }
+
+
+function deleteAccount($email){
+    require_once "model/usersManager.php";
+    $del = deleteAccountM($email);
+    logout();
+}
+
+
     //</modifyUser>
 
     //<newsletter>
