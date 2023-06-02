@@ -27,8 +27,8 @@
 
 
 
-# To keep a functionality remove "//" before <tag>
-# To remove a functionality keep "//" before <tag>
-# if you keep // on a parent tag please also keep // on child tag for best results
+# To keep a functionality remove "//" before <tag> and coresponding </tag>
+# To remove a functionality keep "//" before <tag> and coresponding </tag>
+# if you keep "//" on a parent tag please also keep // on child tag for best results
 # 
 # Finally, when everything is up to your taste execute Modifier.ps1

@@ -13,6 +13,9 @@ $title = 'Create Album';
 
 ob_start();
 ?>
+        <header class="section background-primary text-center">
+            <h1 class="text-white margin-bottom-0 text-size-50 text-thin text-line-height-1">Create Album</h1>
+        </header>
 <div>
     <form class="customform" action="../index.php?action=createAlbum" method="POST" enctype="multipart/form-data">
         <div class="line">
