@@ -129,7 +129,7 @@ ob_start();
             </div>
         </div>
     </article>
-
+</main>
 <?php
 $content = ob_get_clean();
 require 'gabarit.php';

@@ -17,10 +17,18 @@
 //</user>
 //<contact>
 //</contact>
+//<socialMedia>
+	//<facebook>
+	//</facebook>
+	//<instagram>
+	//</instagram>
+//</socialMedia>
+
 
 
 
 # To keep a functionality remove "//" before <tag>
 # To remove a functionality keep "//" before <tag>
+# if you keep // on a parent tag please also keep // on child tag for best results
 # 
 # Finally, when everything is up to your taste execute Modifier.ps1

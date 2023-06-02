@@ -1,12 +1,5 @@
 <?php
 
-/**
- * @File : contact.php
- * @Brief : Displays contact page
- * @Author : Created by Shanshe GUNDISHVILI
- * @Author : Updated by Kevin VAUCHER
- * @Version : 17-02-2021
- */
 
 
 $title = 'Gallery Modify';
@@ -54,8 +47,6 @@ ob_start();
         </div>
     </div>
     <script type="text/javascript" src="/view/js/GalleryJS.js"></script>
-
-    </div>
 <?php
 $content = ob_get_clean();
 require 'gabarit.php';
